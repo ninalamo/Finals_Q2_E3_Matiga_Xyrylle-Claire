@@ -9,6 +9,9 @@ interface TodoItemProps {
   isFirstActive?: boolean;
 }
 
+
+// updated
+
 const TodoItem: React.FC<TodoItemProps> = ({ todo, onEdit, isFirstActive }) => {
   const { toggleTodo, deleteTodo } = useTodos();
 

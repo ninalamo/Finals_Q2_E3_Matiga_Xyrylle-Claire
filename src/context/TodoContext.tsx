@@ -67,6 +67,8 @@ export const TodoProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   };
 
+
+  
   const toggleTodo = async (id: string) => {
     const todo = todos.find(t => t.id === id);
     if (todo) {
