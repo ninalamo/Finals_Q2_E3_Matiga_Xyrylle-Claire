@@ -12,8 +12,6 @@ const TodoList: React.FC = () => {
     setEditingTodo(todo);
   };
 
-
-  
   const handleSaveEdit = async (id: string, newTitle: string) => {
     await updateTodo(id, { title: newTitle });
   };
