@@ -70,7 +70,19 @@ export const TodoProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const toggleTodo = async (id: string) => {
     const todo = todos.find(t => t.id === id);
     if (todo) {
-      await updateTodo(id, { completed: !todo.completed });
+      const newStatus = !todo.completed;
+      await updateTodo(id, { completed: newStatus });
+      
+      // Bonus: Shadow Archive (Ghosting)
+      if (newStatus) {
+        setTimeout(async () => {
+          try {
+            await deleteTodo(id);
+          } catch (e) {
+            console.error("Ghosting deletion failed", e);
+          }
+        }, 15000); // 15 seconds
+      }
     }
   };
 

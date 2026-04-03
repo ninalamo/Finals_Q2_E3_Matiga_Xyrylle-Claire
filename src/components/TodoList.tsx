@@ -19,6 +19,9 @@ const TodoList: React.FC = () => {
   if (loading) return <div className="text-center py-10 text-text-muted animate-pulse">Loading tasks...</div>;
   if (error) return <div className="text-center py-10 text-red-500 bg-red-500/10 rounded-xl">{error}</div>;
 
+  const activeTodos = todos.filter(t => !t.completed);
+  const firstActiveId = activeTodos.length > 0 ? activeTodos[0].id : null;
+
   return (
     <>
       <div className="space-y-1">
@@ -33,6 +36,7 @@ const TodoList: React.FC = () => {
               key={todo.id}
               todo={todo}
               onEdit={handleEdit}
+              isFirstActive={todo.id === firstActiveId}
             />
           ))
         )}

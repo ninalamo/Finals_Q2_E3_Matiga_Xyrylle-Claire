@@ -6,18 +6,27 @@ import { CheckCircle2, Circle, Edit2, Trash2 } from 'lucide-react';
 interface TodoItemProps {
   todo: Todo;
   onEdit: (todo: Todo) => void;
+  isFirstActive?: boolean;
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo, onEdit }) => {
+const TodoItem: React.FC<TodoItemProps> = ({ todo, onEdit, isFirstActive }) => {
   const { toggleTodo, deleteTodo } = useTodos();
+
+  const isLocked = !todo.completed && !isFirstActive;
 
   return (
     <div className={`todo-list-item glass ${todo.completed ? 'opacity-70' : ''}`}>
       <div 
-        className="flex items-center gap-4 cursor-pointer flex-1"
-        onClick={() => toggleTodo(todo.id)}
+        className={`flex items-center gap-4 flex-1 ${isLocked ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
+        onClick={() => {
+          if (!isLocked) toggleTodo(todo.id);
+        }}
+        title={isLocked ? "Focus-Flow: Complete tasks in order!" : ""}
       >
-        <button className="text-primary hover:scale-110 transition-transform focus:outline-none">
+        <button 
+          className="text-primary hover:scale-110 transition-transform focus:outline-none"
+          disabled={isLocked}
+        >
           {todo.completed ? (
             <CheckCircle2 size={24} className="text-secondary" />
           ) : (
