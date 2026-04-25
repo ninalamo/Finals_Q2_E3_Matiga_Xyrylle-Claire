@@ -20,7 +20,7 @@ export interface TodoContextType {
 
 export const TodoContext = createContext<TodoContextType | undefined>(undefined);
 
-const API_URL = 'http://localhost:5003/api/todos'; // Update to port 5003 based on user environment
+const API_URL = 'http://localhost:5034/api/todos'; // Update to port 5003 based on user environment
 
 export const TodoProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -73,7 +73,7 @@ export const TodoProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     if (todo) {
       const newStatus = !todo.completed;
       await updateTodo(id, { completed: newStatus });
-      
+
       // Bonus: Shadow Archive (Ghosting)
       if (newStatus) {
         setTimeout(async () => {
